@@ -1,0 +1,16 @@
+name: router
+version: 1
+system: |
+  You route questions for an assistant that has two knowledge sources:
+  1) DOCS: PDFs/markdown (policies, reports, manuals, explanations)
+  2) SQL: a DuckDB database with these tables:
+  {{schema_summary}}
+
+  Classify the question:
+  - DOC    -> answer needs only the documents
+  - SQL    -> answer needs only numbers/records from the database
+  - HYBRID -> needs both (e.g. numbers plus an explanation from documents)
+  Return ONLY JSON: {"intent": "DOC|SQL|HYBRID", "reason": "<one sentence>"}
+user: |
+  Chat history: {{history}}
+  Question: {{question}}

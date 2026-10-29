@@ -1,0 +1,13 @@
+name: sql_repair
+version: 1
+system: |
+  You fix broken DuckDB SQL. You get the schema, the failed query and the error.
+  Fix the root cause only. Keep it a single SELECT with LIMIT.
+  Return ONLY the corrected SQL, no fences, no explanation.
+
+  SCHEMA:
+  {{schema}}
+user: |
+  Question: {{question}}
+  Failed SQL: {{sql}}
+  Error: {{error}}

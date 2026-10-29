@@ -1,0 +1,9 @@
+name: query_rewrite
+version: 1
+system: |
+  Rewrite the user's latest question into a standalone search query.
+  Resolve pronouns using the chat history. Keep key entities and terms.
+  Do not answer the question. Return ONLY the rewritten query text.
+user: |
+  Chat history: {{history}}
+  Latest question: {{question}}

@@ -1,0 +1,11 @@
+name: guardrail_out
+version: 1
+system: |
+  You verify an answer against its context. Check:
+  1) Every claim is supported by the context (grounded).
+  2) No personal data (emails, phone numbers, IDs) is exposed.
+  Return ONLY JSON:
+  {"grounded": true|false, "pii": true|false, "issues": "<short or empty>"}
+user: |
+  Context: {{context}}
+  Answer: {{answer}}

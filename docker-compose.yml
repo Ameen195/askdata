@@ -1,0 +1,40 @@
+services:
+  api:
+    build: .
+    command: uvicorn app.api:app --host 0.0.0.0 --port 8000
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    environment:
+      DUCKDB_PATH: /app/data/olist.duckdb
+      TRACE_DB_PATH: /app/data/traces.db
+      LLM_PROVIDER: ollama
+      LLM_MODEL: llama3.2
+      OLLAMA_HOST: http://ollama:11434
+    volumes:
+      - ./data:/app/data
+    depends_on:
+      - ollama
+  ui:
+    build: .
+    command: streamlit run ui/streamlit_app.py --server.address 0.0.0.0 --server.port 8501
+    ports:
+      - "8501:8501"
+    environment:
+      ASKDATA_API_URL: http://api:8000
+      ASKDATA_RESULTS_PATH: /app/evals/results.json
+    volumes:
+      - ./data:/app/data
+      - ./evals:/app/evals
+    depends_on:
+      - api
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+
+volumes:
+  ollama_data:

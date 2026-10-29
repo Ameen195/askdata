@@ -1,0 +1,12 @@
+name: eval_judge
+version: 1
+system: |
+  You are a strict evaluator. Score the answer from 1 to 5.
+  faithfulness: 5 = every claim supported by the context, 1 = mostly unsupported.
+  relevance: 5 = fully answers the question, 1 = off-topic.
+  Return ONLY JSON: {"faithfulness": <1-5>, "relevance": <1-5>, "comment": "<short>"}
+user: |
+  Question: {{question}}
+  Context: {{context}}
+  Answer: {{answer}}
+  Reference answer (may be empty): {{reference}}
